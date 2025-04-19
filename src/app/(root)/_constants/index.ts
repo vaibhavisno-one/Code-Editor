@@ -337,10 +337,10 @@ print("Sum of numbers: \\(sum)")`,
   },
 };
 
-// Define BuiltinTheme type
+// import * as monaco from 'monaco-editor';
+
 type BuiltinTheme = "vs" | "vs-dark" | "hc-black"; // Adjust as needed
 
-// Define themes for Monaco editor
 export const THEMES: Theme[] = [
   { id: "vs-dark", label: "VS Dark", color: "#1e1e1e" },
   { id: "vs-light", label: "VS Light", color: "#ffffff" },
@@ -349,10 +349,9 @@ export const THEMES: Theme[] = [
   { id: "solarized-dark", label: "Solarized Dark", color: "#002b36" },
 ];
 
-// Define the themes and their configurations
 export const THEME_DEFINITIONS = {
   "github-dark": {
-    base: "vs-dark" as BuiltinTheme,
+    base: "vs-dark" as BuiltinTheme, // Type assertion
     inherit: true,
     rules: [
       { token: "comment", foreground: "6e7681" },
@@ -376,7 +375,7 @@ export const THEME_DEFINITIONS = {
     },
   },
   monokai: {
-    base: "vs-dark" as BuiltinTheme,
+    base: "vs-dark" as BuiltinTheme, // Type assertion
     inherit: true,
     rules: [
       { token: "comment", foreground: "75715E" },
@@ -400,7 +399,7 @@ export const THEME_DEFINITIONS = {
     },
   },
   "solarized-dark": {
-    base: "vs-dark" as BuiltinTheme,
+    base: "vs-dark" as BuiltinTheme, // Type assertion
     inherit: true,
     rules: [
       { token: "comment", foreground: "586e75" },
@@ -432,7 +431,6 @@ Object.entries(THEME_DEFINITIONS).forEach(([themeName, themeData]) => {
     inherit: themeData.inherit,
     rules: themeData.rules.map((rule) => ({
       ...rule,
-      foreground: rule.foreground,
     })),
     colors: themeData.colors,
   });
@@ -452,3 +450,4 @@ export const defineMonacoThemes = (monaco: Monaco) => {
     });
   });
 };
+
