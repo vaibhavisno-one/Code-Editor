@@ -37,6 +37,14 @@ export interface ExecutionResult {
   error: string | null;
 }
 
+import * as monaco from "monaco-editor";
+
+export interface ExecutionResult {
+  code: string;
+  output: string;
+  error: string | null;
+}
+
 export interface CodeEditorState {
   language: string;
   output: string;
@@ -44,16 +52,17 @@ export interface CodeEditorState {
   error: string | null;
   theme: string;
   fontSize: number;
-  editor: Monaco | null;
+  editor: monaco.editor.IStandaloneCodeEditor | null;
   executionResult: ExecutionResult | null;
 
-  setEditor: (editor: Monaco) => void;
+  setEditor: (editor: monaco.editor.IStandaloneCodeEditor) => void;
   getCode: () => string;
   setLanguage: (language: string) => void;
   setTheme: (theme: string) => void;
   setFontSize: (fontSize: number) => void;
   runCode: () => Promise<void>;
 }
+
 
 export interface Snippet {
   _id: Id<"snippets">;
