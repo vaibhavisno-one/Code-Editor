@@ -1,5 +1,6 @@
 import { Monaco } from "@monaco-editor/react";
 import { Theme } from "../../../types";
+import * as monaco from 'monaco-editor';
 
 type LanguageConfig = Record<
   string,
@@ -336,6 +337,10 @@ print("Sum of numbers: \\(sum)")`,
   },
 };
 
+// Define BuiltinTheme type
+type BuiltinTheme = "vs" | "vs-dark" | "hc-black"; // Adjust as needed
+
+// Define themes for Monaco editor
 export const THEMES: Theme[] = [
   { id: "vs-dark", label: "VS Dark", color: "#1e1e1e" },
   { id: "vs-light", label: "VS Light", color: "#ffffff" },
@@ -344,9 +349,10 @@ export const THEMES: Theme[] = [
   { id: "solarized-dark", label: "Solarized Dark", color: "#002b36" },
 ];
 
-export const THEME_DEFINITONS = {
+// Define the themes and their configurations
+export const THEME_DEFINITIONS = {
   "github-dark": {
-    base: "vs-dark",
+    base: "vs-dark" as BuiltinTheme,
     inherit: true,
     rules: [
       { token: "comment", foreground: "6e7681" },
@@ -370,7 +376,7 @@ export const THEME_DEFINITONS = {
     },
   },
   monokai: {
-    base: "vs-dark",
+    base: "vs-dark" as BuiltinTheme,
     inherit: true,
     rules: [
       { token: "comment", foreground: "75715E" },
@@ -394,7 +400,7 @@ export const THEME_DEFINITONS = {
     },
   },
   "solarized-dark": {
-    base: "vs-dark",
+    base: "vs-dark" as BuiltinTheme,
     inherit: true,
     rules: [
       { token: "comment", foreground: "586e75" },
@@ -419,9 +425,22 @@ export const THEME_DEFINITONS = {
   },
 };
 
+// Apply the themes
+Object.entries(THEME_DEFINITIONS).forEach(([themeName, themeData]) => {
+  monaco.editor.defineTheme(themeName, {
+    base: themeData.base, // Base theme is now properly typed
+    inherit: themeData.inherit,
+    rules: themeData.rules.map((rule) => ({
+      ...rule,
+      foreground: rule.foreground,
+    })),
+    colors: themeData.colors,
+  });
+});
+
 // Helper function to define themes in Monaco
 export const defineMonacoThemes = (monaco: Monaco) => {
-  Object.entries(THEME_DEFINITONS).forEach(([themeName, themeData]) => {
+  Object.entries(THEME_DEFINITIONS).forEach(([themeName, themeData]) => {
     monaco.editor.defineTheme(themeName, {
       base: themeData.base,
       inherit: themeData.inherit,
