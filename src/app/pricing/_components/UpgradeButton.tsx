@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function UpgradeButton() {
   const CHEKOUT_URL =
-    "https://github.com/vaibhavisno-one";
+    "https://kodeinsane.lemonsqueezy.com/buy/7ca8cac5-2a15-47b4-a4f9-d120c65bd707";
 
   return (
     <Link
