@@ -44,14 +44,14 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`group relative flex items-center gap-3 px-4 py-2.5 bg-secondary-background/80 
+        className={`group relative flex items-center gap-3 px-4 py-2.5 bg-secondary-background/80
       rounded-lg transition-all 
        duration-200 border border-text-secondary/30 hover:border-text-secondary/50
        ${!hasAccess && !FREE_LANGUAGES.includes(language) ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         {/* Decoration */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-accent-blue/10 to-accent-purple/5 
+          className="absolute inset-0 bg-gradient-to-r from-accent-blue/10 to-accent-purple/5
         rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
           aria-hidden="true"
         />
@@ -112,7 +112,7 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
                       disabled={isLocked}
                     >
                       <div
-                        className="absolute inset-0 bg-gradient-to-r from-accent-blue/5 to-accent-purple/5 rounded-lg 
+                        className="absolute inset-0 bg-gradient-to-r from-accent-blue/5 to-accent-purple/5 rounded-lg
                       opacity-0 group-hover:opacity-100 transition-opacity"
                       />
 
@@ -123,7 +123,7 @@ function LanguageSelector({ hasAccess }: { hasAccess: boolean }) {
                        `}
                       >
                         <div
-                          className="absolute inset-0 bg-gradient-to-br from-accent-blue/10 to-accent-purple/10 rounded-lg 
+                          className="absolute inset-0 bg-gradient-to-br from-accent-blue/10 to-accent-purple/10 rounded-lg
                         opacity-0 group-hover:opacity-100 transition-opacity"
                         />
                         <Image

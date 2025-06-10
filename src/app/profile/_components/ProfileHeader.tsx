@@ -37,8 +37,8 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
       label: "Code Executions",
       value: userStats?.totalExecutions ?? 0,
       icon: Activity,
-      color: "from-blue-500 to-cyan-500",
-      gradient: "group-hover:via-blue-400",
+      color: "from-accent-blue to-sky-500",
+      gradient: "group-hover:via-accent-blue/80",
       description: "Total code runs",
       metric: {
         label: "Last 24h",
@@ -50,8 +50,8 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
       label: "Starred Snippets",
       value: starredSnippets?.length ?? 0,
       icon: Star,
-      color: "from-yellow-500 to-orange-500",
-      gradient: "group-hover:via-yellow-400",
+      color: "from-accent-purple to-pink-500",
+      gradient: "group-hover:via-accent-purple/80",
       description: "Saved for later",
       metric: {
         label: "Most starred",
@@ -63,8 +63,8 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
       label: "Languages Used",
       value: userStats?.languagesCount ?? 0,
       icon: Code2,
-      color: "from-purple-500 to-pink-500",
-      gradient: "group-hover:via-purple-400",
+      color: "from-accent-purple to-pink-500", // Or use accent-blue for variety: "from-accent-blue to-sky-500"
+      gradient: "group-hover:via-accent-purple/80", // Match above: "group-hover:via-accent-blue/80"
       description: "Different languages",
       metric: {
         label: "Most used",
@@ -76,40 +76,40 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
 
   return (
     <div
-      className="relative mb-8 bg-gradient-to-br from-[#12121a] to-[#1a1a2e] rounded-2xl p-8 border
-     border-gray-800/50 overflow-hidden"
+      className="relative mb-8 bg-gradient-to-br from-secondary-background to-primary-background rounded-2xl p-8 border
+     border-primary-background/50 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px]" />
+      <div className="absolute inset-0 bg-grid-text-primary/[0.02] bg-[size:32px]" />
       <div className="relative flex items-center gap-8">
         <div className="relative group">
           <div
-            className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full 
+            className="absolute inset-0 bg-gradient-to-r from-accent-blue to-accent-purple rounded-full
           blur-xl opacity-50 group-hover:opacity-75 transition-opacity"
           />
           <img
             src={user.imageUrl}
             alt="Profile"
-            className="w-24 h-24 rounded-full border-4 border-gray-800/50 relative z-10 group-hover:scale-105 transition-transform"
+            className="w-24 h-24 rounded-full border-4 border-primary-background relative z-10 group-hover:scale-105 transition-transform"
           />
           {userData.isPro && (
             <div
-              className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-500 to-purple-600 p-2
+              className="absolute -top-2 -right-2 bg-gradient-to-r from-accent-purple to-accent-purple/90 p-2
              rounded-full z-20 shadow-lg animate-pulse"
             >
-              <Zap className="w-4 h-4 text-white" />
+              <Zap className="w-4 h-4 text-text-primary" />
             </div>
           )}
         </div>
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold text-white">{userData.name}</h1>
+            <h1 className="text-3xl font-bold text-text-primary">{userData.name}</h1>
             {userData.isPro && (
-              <span className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm font-medium">
+              <span className="px-3 py-1 bg-accent-purple/10 text-accent-purple rounded-full text-sm font-medium">
                 Pro Member
               </span>
             )}
           </div>
-          <p className="text-gray-400 flex items-center gap-2">
+          <p className="text-text-secondary flex items-center gap-2">
             <UserIcon className="w-4 h-4" />
             {userData.email}
           </p>
@@ -124,7 +124,7 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             key={index}
-            className="group relative bg-gradient-to-br from-black/40 to-black/20 rounded-2xl overflow-hidden"
+            className="group relative bg-gradient-to-br from-primary-background/70 to-primary-background/40 rounded-2xl overflow-hidden"
           >
             {/* Glow effect */}
             <div
@@ -137,28 +137,28 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm font-medium text-gray-400">{stat.description}</span>
+                    <span className="text-sm font-medium text-text-secondary">{stat.description}</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white tracking-tight">
+                  <h3 className="text-2xl font-bold text-text-primary tracking-tight">
                     {typeof stat.value === "number" ? stat.value.toLocaleString() : stat.value}
                   </h3>
-                  <p className="text-sm text-gray-400 mt-1">{stat.label}</p>
+                  <p className="text-sm text-text-secondary mt-1">{stat.label}</p>
                 </div>
                 <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color} bg-opacity-10`}>
-                  <stat.icon className="w-5 h-5 text-white" />
+                  <stat.icon className="w-5 h-5 text-text-primary" />
                 </div>
               </div>
 
               {/* Additional metric */}
-              <div className="flex items-center gap-2 pt-4 border-t border-gray-800/50">
-                <stat.metric.icon className="w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-400">{stat.metric.label}:</span>
-                <span className="text-sm font-medium text-white">{stat.metric.value}</span>
+              <div className="flex items-center gap-2 pt-4 border-t border-primary-background/50">
+                <stat.metric.icon className="w-4 h-4 text-text-secondary/70" />
+                <span className="text-sm text-text-secondary">{stat.metric.label}:</span>
+                <span className="text-sm font-medium text-text-primary">{stat.metric.value}</span>
               </div>
             </div>
 
             {/* Interactive hover effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-text-primary/5 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform" />
           </motion.div>
         ))}
       </div>

@@ -41,7 +41,7 @@ function ThemeSelector() {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-48 group relative flex items-center gap-2 px-4 py-2.5 bg-secondary-background/80 hover:bg-primary-background 
+        className="w-48 group relative flex items-center gap-2 px-4 py-2.5 bg-secondary-background/80 hover:bg-primary-background
         rounded-lg transition-all duration-200 border border-primary-background hover:border-text-secondary/50"
       >
         {/* hover state bg decorator */}
@@ -68,7 +68,7 @@ function ThemeSelector() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 w-full min-w-[240px] bg-secondary-background/95 
+            className="absolute top-full left-0 mt-2 w-full min-w-[240px] bg-secondary-background/95
             backdrop-blur-xl rounded-xl border border-primary-background shadow-2xl py-2 z-50"
           >
             <div className="px-2 pb-2 mb-2 border-b border-primary-background/50">
@@ -89,7 +89,7 @@ function ThemeSelector() {
               >
                 {/* bg gradient */}
                 <div
-                  className="absolute inset-0 bg-gradient-to-r from-accent-blue/5 to-accent-purple/5 opacity-0 
+                  className="absolute inset-0 bg-gradient-to-r from-accent-blue/5 to-accent-purple/5 opacity-0
               group-hover:opacity-100 transition-opacity"
                 />
 
@@ -110,7 +110,7 @@ function ThemeSelector() {
 
                 {/* color indicator */}
                 <div
-                  className="relative size-4 rounded-full border border-text-secondary/50 
+                  className="relative size-4 rounded-full border border-text-secondary/50
                 group-hover:border-text-secondary transition-colors"
                   style={{ background: t.color }}
                 />

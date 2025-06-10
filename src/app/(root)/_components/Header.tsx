@@ -28,7 +28,7 @@ async function Header() {
             {/* Logo hover effect */}
 
             <div
-              className="absolute -inset-2 bg-gradient-to-r from-accent-blue/20 to-accent-purple/20 rounded-lg opacity-0 
+              className="absolute -inset-2 bg-gradient-to-r from-accent-blue/20 to-accent-purple/20 rounded-lg opacity-0
                 group-hover:opacity-100 transition-all duration-500 blur-xl"
             />
 
@@ -54,11 +54,11 @@ async function Header() {
           <nav className="flex items-center space-x-1">
             <Link
               href="/snippets"
-              className="relative group flex items-center gap-2 px-4 py-1.5 rounded-lg text-text-secondary bg-secondary-background/50 
+              className="relative group flex items-center gap-2 px-4 py-1.5 rounded-lg text-text-secondary bg-secondary-background/50
                 hover:bg-accent-blue/10 border border-secondary-background hover:border-accent-blue/50 transition-all duration-300 shadow-lg overflow-hidden"
             >
               <div
-                className="absolute inset-0 bg-gradient-to-r from-accent-blue/10 
+                className="absolute inset-0 bg-gradient-to-r from-accent-blue/10
                 to-accent-purple/10 opacity-0 group-hover:opacity-100 transition-opacity"
               />
               <Code2 className="w-4 h-4 relative z-10 group-hover:rotate-3 transition-transform" />
@@ -81,8 +81,8 @@ async function Header() {
           {!convexUser?.isPro && (
             <Link
               href="/pricing"
-              className="flex items-center gap-2 px-4 py-1.5 rounded-lg border border-accent-purple/20 hover:border-accent-purple/40 bg-gradient-to-r from-accent-purple/10 
-                to-accent-purple/10 hover:from-accent-purple/20 hover:to-accent-purple/20 
+              className="flex items-center gap-2 px-4 py-1.5 rounded-lg border border-accent-purple/20 hover:border-accent-purple/40 bg-gradient-to-r from-accent-purple/10
+                to-accent-purple/10 hover:from-accent-purple/20 hover:to-accent-purple/20
                 transition-all duration-300"
             >
               <Sparkles className="w-4 h-4 text-accent-purple hover:text-accent-purple/90" />
