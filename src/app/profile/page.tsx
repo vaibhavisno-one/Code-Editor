@@ -60,7 +60,7 @@ function ProfilePage() {
   if (!user && isLoaded) return router.push("/");
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f]">
+    <div className="min-h-screen bg-primary-background">
       <NavigationHeader />
 
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -74,24 +74,24 @@ function ProfilePage() {
 
         {/* Main content */}
         <div
-          className="bg-gradient-to-br from-[#12121a] to-[#1a1a2e] rounded-3xl shadow-2xl 
-        shadow-black/50 border border-gray-800/50 backdrop-blur-xl overflow-hidden"
+          className="bg-gradient-to-br from-primary-background to-secondary-background rounded-3xl shadow-2xl
+        shadow-black/50 border border-secondary-background/50 backdrop-blur-xl overflow-hidden"
         >
           {/* Tabs */}
-          <div className="border-b border-gray-800/50">
+          <div className="border-b border-secondary-background/50">
             <div className="flex space-x-1 p-4">
               {TABS.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as "executions" | "starred")}
                   className={`group flex items-center gap-2 px-6 py-2.5 rounded-lg transition-all duration-200 relative overflow-hidden ${
-                    activeTab === tab.id ? "text-blue-400" : "text-gray-400 hover:text-gray-300"
+                    activeTab === tab.id ? "text-accent-blue" : "text-text-secondary hover:text-text-primary"
                   }`}
                 >
                   {activeTab === tab.id && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 bg-blue-500/10 rounded-lg"
+                      className="absolute inset-0 bg-accent-blue/10 rounded-lg"
                       transition={{
                         type: "spring",
                         bounce: 0.2,
@@ -122,12 +122,12 @@ function ProfilePage() {
                   {executions?.map((execution) => (
                     <div
                       key={execution._id}
-                      className="group rounded-xl overflow-hidden transition-all duration-300 hover:border-blue-500/50 hover:shadow-md hover:shadow-blue-500/50"
+                      className="group rounded-xl overflow-hidden transition-all duration-300 hover:border-accent-blue/50 hover:shadow-md hover:shadow-accent-blue/20"
                     >
-                      <div className="flex items-center justify-between p-4 bg-black/30 border border-gray-800/50 rounded-t-xl">
+                      <div className="flex items-center justify-between p-4 bg-black/30 border border-secondary-background/50 rounded-t-xl">
                         <div className="flex items-center gap-4">
                           <div className="relative">
-                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg blur opacity-20 group-hover:opacity-30 transition-opacity" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-accent-blue to-accent-purple rounded-lg blur opacity-20 group-hover:opacity-30 transition-opacity" />
                             <Image
                               src={"/" + execution.language + ".png"}
                               alt=""
@@ -138,11 +138,11 @@ function ProfilePage() {
                           </div>
                           <div className="space-y-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-medium text-white">
+                              <span className="text-sm font-medium text-text-primary">
                                 {execution.language.toUpperCase()}
                               </span>
-                              <span className="text-xs text-gray-400">•</span>
-                              <span className="text-xs text-gray-400">
+                              <span className="text-xs text-text-secondary">•</span>
+                              <span className="text-xs text-text-secondary">
                                 {new Date(execution._creationTime).toLocaleString()}
                               </span>
                             </div>
@@ -161,12 +161,12 @@ function ProfilePage() {
                         </div>
                       </div>
 
-                      <div className="p-4 bg-black/20 rounded-b-xl border border-t-0 border-gray-800/50">
+                      <div className="p-4 bg-black/20 rounded-b-xl border border-t-0 border-secondary-background/50">
                         <CodeBlock code={execution.code} language={execution.language} />
 
                         {(execution.output || execution.error) && (
                           <div className="mt-4 p-4 rounded-lg bg-black/40">
-                            <h4 className="text-sm font-medium text-gray-400 mb-2">Output</h4>
+                            <h4 className="text-sm font-medium text-text-secondary mb-2">Output</h4>
                             <pre
                               className={`text-sm ${
                                 execution.error ? "text-red-400" : "text-green-400"
@@ -182,19 +182,19 @@ function ProfilePage() {
 
                   {isLoadingExecutions ? (
                     <div className="text-center py-12">
-                      <Loader2 className="w-12 h-12 text-gray-600 mx-auto mb-4 animate-spin" />
-                      <h3 className="text-lg font-medium text-gray-400 mb-2">
+                      <Loader2 className="w-12 h-12 text-text-secondary mx-auto mb-4 animate-spin" />
+                      <h3 className="text-lg font-medium text-text-secondary mb-2">
                         Loading code executions...
                       </h3>
                     </div>
                   ) : (
                     executions.length === 0 && (
                       <div className="text-center py-12">
-                        <Code className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-400 mb-2">
+                        <Code className="w-12 h-12 text-text-secondary mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-text-secondary mb-2">
                           No code executions yet
                         </h3>
-                        <p className="text-gray-500">Start coding to see your execution history!</p>
+                        <p className="text-text-secondary/70">Start coding to see your execution history!</p>
                       </div>
                     )
                   )}
@@ -204,7 +204,7 @@ function ProfilePage() {
                     <div className="flex justify-center mt-8">
                       <button
                         onClick={handleLoadMore}
-                        className="px-6 py-3 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg flex items-center gap-2 
+                        className="px-6 py-3 bg-accent-blue/10 hover:bg-accent-blue/20 text-accent-blue rounded-lg flex items-center gap-2
                         transition-colors"
                       >
                         Load More
@@ -222,7 +222,7 @@ function ProfilePage() {
                     <div key={snippet._id} className="group relative">
                       <Link href={`/snippets/${snippet._id}`}>
                         <div
-                          className="bg-black/20 rounded-xl border border-gray-800/50 hover:border-gray-700/50 
+                          className="bg-black/20 rounded-xl border border-secondary-background/50 hover:border-secondary-background
                           transition-all duration-300 overflow-hidden h-full group-hover:transform
                         group-hover:scale-[1.02]"
                         >
@@ -230,7 +230,7 @@ function ProfilePage() {
                             <div className="flex items-center justify-between mb-4">
                               <div className="flex items-center gap-3">
                                 <div className="relative">
-                                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg blur opacity-20 group-hover:opacity-30 transition-opacity" />
+                                  <div className="absolute inset-0 bg-gradient-to-r from-accent-blue to-accent-purple rounded-lg blur opacity-20 group-hover:opacity-30 transition-opacity" />
                                   <Image
                                     src={`/${snippet.language}.png`}
                                     alt={`${snippet.language} logo`}
@@ -239,7 +239,7 @@ function ProfilePage() {
                                     height={40}
                                   />
                                 </div>
-                                <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-lg text-sm">
+                                <span className="px-3 py-1 bg-accent-blue/10 text-accent-blue rounded-lg text-sm">
                                   {snippet.language}
                                 </span>
                               </div>
@@ -250,10 +250,10 @@ function ProfilePage() {
                                 <StarButton snippetId={snippet._id} />
                               </div>
                             </div>
-                            <h2 className="text-xl font-semibold text-white mb-3 line-clamp-1 group-hover:text-blue-400 transition-colors">
+                            <h2 className="text-xl font-semibold text-text-primary mb-3 line-clamp-1 group-hover:text-accent-blue transition-colors">
                               {snippet.title}
                             </h2>
-                            <div className="flex items-center justify-between text-sm text-gray-400">
+                            <div className="flex items-center justify-between text-sm text-text-secondary">
                               <div className="flex items-center gap-2">
                                 <Clock className="w-4 h-4" />
                                 <span>{new Date(snippet._creationTime).toLocaleDateString()}</span>
@@ -263,7 +263,7 @@ function ProfilePage() {
                           </div>
                           <div className="px-6 pb-6">
                             <div className="bg-black/30 rounded-lg p-4 overflow-hidden">
-                              <pre className="text-sm text-gray-300 font-mono line-clamp-3">
+                              <pre className="text-sm text-text-secondary font-mono line-clamp-3">
                                 {snippet.code}
                               </pre>
                             </div>
@@ -275,11 +275,11 @@ function ProfilePage() {
 
                   {(!starredSnippets || starredSnippets.length === 0) && (
                     <div className="col-span-full text-center py-12">
-                      <Star className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-gray-400 mb-2">
+                      <Star className="w-12 h-12 text-text-secondary mx-auto mb-4" />
+                      <h3 className="text-lg font-medium text-text-secondary mb-2">
                         No starred snippets yet
                       </h3>
-                      <p className="text-gray-500">
+                      <p className="text-text-secondary/70">
                         Start exploring and star the snippets you find useful!
                       </p>
                     </div>
