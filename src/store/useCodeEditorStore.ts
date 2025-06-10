@@ -94,44 +94,53 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
         });
 
         const data = await response.json();
-        console.log("data back from piston:", data);
+        // console.log("data back from piston:", data); // Keep this for debugging during development if useful
 
-        if (data.message) {
-          set({
-            error: data.message,
-            executionResult: { code, output: "", error: data.message },
-          });
+        if (data.message) { // Top-level error message from Piston (e.g., language not supported)
+          set({ error: data.message, output: "", executionResult: { code, output: "", error: data.message } });
           return;
         }
 
-        if (data.compile?.code !== 0) {
-          const error = data.compile.stderr || data.compile.output;
-          set({
-            error,
-            executionResult: { code, output: "", error },
-          });
+        // Check for compilation issues if a compile object exists
+        if (data.compile) {
+          if (data.compile.code !== 0) {
+            const compileError = data.compile.stderr || data.compile.output || "Compilation error";
+            set({ error: compileError, output: "", executionResult: { code, output: "", error: compileError } });
+            return;
+          }
+        }
+
+        // Check for runtime issues or successful run if a run object exists
+        if (data.run) {
+          if (data.run.code !== 0) {
+            const runError = data.run.stderr || data.run.output || "Runtime error";
+            set({ error: runError, output: "", executionResult: { code, output: "", error: runError } });
+            return;
+          }
+          // Successful run
+          const outputResult = data.run.output !== undefined ? String(data.run.output) : "";
+          set({ output: outputResult.trim(), error: null, executionResult: { code, output: outputResult.trim(), error: null } });
           return;
         }
 
-        if (data.run?.code !== 0) {
-          const error = data.run.stderr || data.run.output;
-          set({
-            error,
-            executionResult: { code, output: "", error },
-          });
-          return;
+        // Handle cases where there's no run object, but compile might have been successful and produced output
+        // (e.g., some linters or tools might only have a "compile" step output)
+        if (data.compile && data.compile.code === 0) {
+            const compileOutputResult = data.compile.output !== undefined ? String(data.compile.output) : "";
+            // If compile output is just an empty string, it's not really an "output" to display unless it's meaningful
+            // For now, we'll display it if present.
+            set({ output: compileOutputResult.trim(), error: null, executionResult: { code, output: compileOutputResult.trim(), error: null } });
+            return;
         }
 
-        const output = data.run.output;
-        set({
-          output: output.trim(),
-          error: null,
-          executionResult: { code, output: output.trim(), error: null },
-        });
+        // Fallback for unexpected response structure if no message, no compile error, and no run info
+        set({ error: "Unexpected response from code execution service. No output or error provided.", output: "", executionResult: { code, output: "", error: "Unexpected response from code execution service." } });
+
       } catch (error) {
         console.log("Error running code:", error);
         set({
-          error: "Error running code",
+          error: "Error running code", // General catch-all
+          output: "",
           executionResult: { code, output: "", error: "Error running code" },
         });
       } finally {
