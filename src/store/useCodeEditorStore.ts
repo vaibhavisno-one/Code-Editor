@@ -104,30 +104,62 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
           return;
         }
 
-        if (data.compile?.code !== 0) {
-          const error = data.compile.stderr || data.compile.output;
+        // Check for compile errors
+        if (data.compile && data.compile.code !== 0) {
+          const error = data.compile.stderr || data.compile.output || "Compilation failed";
           set({
             error,
             executionResult: { code, output: "", error },
           });
           return;
         }
-
-        if (data.run?.code !== 0) {
-          const error = data.run.stderr || data.run.output;
+        // Check if compile stage exists but was successful, then if run stage exists
+        else if (data.compile && data.compile.code === 0 && data.run && data.run.code !== 0) {
+          // Runtime error
+          const error = data.run.stderr || data.run.output || "Execution failed";
           set({
             error,
             executionResult: { code, output: "", error },
           });
           return;
         }
-
-        const output = data.run.output;
-        set({
-          output: output.trim(),
-          error: null,
-          executionResult: { code, output: output.trim(), error: null },
-        });
+        // Check if only run stage exists (e.g. for languages that don't have a separate compile stage)
+        else if (!data.compile && data.run && data.run.code !== 0) {
+          const error = data.run.stderr || data.run.output || "Execution failed";
+          set({
+            error,
+            executionResult: { code, output: "", error },
+          });
+          return;
+        }
+        // Successful execution (either with or without compile stage)
+        else if (data.run && data.run.code === 0) {
+          const output = data.run.output;
+          set({
+            output: output.trim(),
+            error: null,
+            executionResult: { code, output: output.trim(), error: null },
+          });
+          return;
+        }
+        // Fallback for unexpected structure, though the above should cover Piston API
+        else {
+            // If there was a compile output (even if code was 0), show it as it might contain warnings
+            if (data.compile && data.compile.output) {
+                set({
+                    output: data.compile.output.trim(),
+                    error: "Execution finished with warnings or unexpected output structure.",
+                    executionResult: { code, output: data.compile.output.trim(), error: "Execution finished with warnings or unexpected output structure." },
+                });
+                return;
+            }
+            // Otherwise, a generic error
+            set({ 
+                error: "Unexpected response structure from execution engine.",
+                executionResult: { code, output: "", error: "Unexpected response structure from execution engine." }
+            });
+            return;
+        }
       } catch (error) {
         console.log("Error running code:", error);
         set({
