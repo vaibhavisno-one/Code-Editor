@@ -18,15 +18,15 @@ interface CommentProps {
 function Comment({ comment, currentUserId, isDeleting, onDelete }: CommentProps) {
   return (
     <div className="group">
-      <div className="bg-[#0a0a0f] rounded-xl p-6 border border-[#ffffff0a] hover:border-[#ffffff14] transition-all">
+      <div className="bg-primary-background rounded-xl p-6 border border-secondary-background hover:border-secondary-background/70 transition-all">
         <div className="flex items-start sm:items-center justify-between gap-4 mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#ffffff08] flex items-center justify-center flex-shrink-0">
-              <UserIcon className="w-4 h-4 text-[#808086]" />
+            <div className="w-9 h-9 rounded-full bg-secondary-background flex items-center justify-center flex-shrink-0">
+              <UserIcon className="w-4 h-4 text-text-secondary" />
             </div>
             <div className="min-w-0">
-              <span className="block text-[#e1e1e3] font-medium truncate">{comment.userName}</span>
-              <span className="block text-sm text-[#808086]">
+              <span className="block text-text-primary font-medium truncate">{comment.userName}</span>
+              <span className="block text-sm text-text-secondary">
                 {new Date(comment._creationTime).toLocaleDateString()}
               </span>
             </div>

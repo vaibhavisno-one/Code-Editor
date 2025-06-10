@@ -16,12 +16,12 @@ function CopyButton({ code }: { code: string }) {
     <button
       onClick={copyToClipboard}
       type="button"
-      className="p-2 hover:bg-white/10 rounded-lg transition-all duration-200 group relative"
+      className="p-2 hover:bg-primary-background rounded-lg transition-all duration-200 group relative"
     >
       {copied ? (
         <Check className="size-4 text-green-400" />
       ) : (
-        <Copy className=" size-4 text-gray-400 group-hover:text-gray-300" />
+        <Copy className=" size-4 text-text-secondary group-hover:text-text-primary" />
       )}
     </button>
   );
